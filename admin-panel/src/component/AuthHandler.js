@@ -23,17 +23,15 @@ const AuthHandler = () => {
         // Function to handle the authentication with the backend
         const authenticate = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/google/callback`, {
-                    method: 'POST',
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/google/callback?code=${code}`, {
+                    method: 'GET', // Changed to GET
                     headers: {
                         'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ code })
+                    }
                 });
 
                 const data = await response.json();
                 if (response.ok) {
-
                     navigate('/dashboard'); // Redirect to dashboard on success
                 } else {
                     throw new Error(data.message || 'Failed to authenticate');
