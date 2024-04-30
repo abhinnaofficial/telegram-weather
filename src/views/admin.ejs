@@ -1,0 +1,62 @@
+<!-- src/views/admin.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <h1>Welcome to the Admin Panel</h1>
+
+    <!-- Bot Settings Form -->
+    <h2>Bot Settings</h2>
+    <form action="/admin/update-bot-settings" method="post">
+        <label for="apiKey">API Key:</label>
+        <input type="text" id="apiKey" name="apiKey" required>
+        <br>
+        <input type="submit" value="Update Bot Settings">
+    </form>
+
+    <!-- User Management Section -->
+    <h2>User Management</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(user=> { %>
+                <tr>
+                    <td>
+                        <%= user.userId %>
+                    </td>
+                    <td>
+                        <%= user.email %>
+                    </td>
+                    <td>
+                        <form action="/admin/block-user" method="post">
+                            <input type="hidden" name="userId" value="<%= user.userId %>">
+                            <input type="submit" value="Block">
+                        </form>
+                        <form action="/admin/delete-user" method="post">
+                            <input type="hidden" name="userId" value="<%= user.userId %>">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+</body>
+
+</html>
