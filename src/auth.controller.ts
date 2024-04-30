@@ -9,7 +9,7 @@ export class AuthController {
         // Check if user is already logged in
         if (req.session.user) {
             // User is already logged in, redirect them directly to the dashboard
-            res.redirect('http://localhost:3001/dashboard');
+            res.redirect(`${process.env.DASHBOARD_URL}/dashboard`);
         } else {
             // Guard redirects to Google
             // This is handled automatically by Passport's Google strategy, so no code needed here
@@ -20,7 +20,7 @@ export class AuthController {
     @UseGuards(AuthGuard('google'))
     async googleLoginCallback(@Req() req, @Res() res, @Session() session) {
         session.user = req.user; // Store user in session
-        res.redirect('http://localhost:3001/dashboard');
+        res.redirect(`${process.env.DASHBOARD_URL}/dashboard`);
     }
 
     @Get('session')
@@ -39,7 +39,7 @@ export class AuthController {
                 console.error('Session destruction failed:', err);
                 res.status(500).json({ message: 'Failed to log out' });
             } else {
-                res.redirect('http://localhost:3001/');
+                res.redirect(`${process.env.DASHBOARD_URL}/`);
             }
         });
     }
