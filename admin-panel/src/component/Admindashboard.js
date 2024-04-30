@@ -7,14 +7,14 @@ const Dashboard = () => {
     const [apiKey, setApiKey] = useState('');  // State to hold the API key input
 
     useEffect(() => {
-        fetch('http://localhost:3000/users')
+        fetch(`${process.env.REACT_APP_API_URL}/users`)
             .then(response => response.json())
             .then(data => setUsers(data))
             .catch(error => console.error('Error fetching users:', error));
     }, []);
 
     const handleToggleBlockUser = async (userId, isCurrentlyBlocked) => {
-        const response = await fetch(`http://localhost:3000/users/toggle-block/${userId}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/users/toggle-block/${userId}`, {
             method: 'POST',
         });
         if (response.ok) {
@@ -23,7 +23,7 @@ const Dashboard = () => {
     };
 
     const handleDeleteUser = async (userId) => {
-        const response = await fetch(`http://localhost:3000/users/${userId}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${userId}`, {
             method: 'DELETE',
         });
         if (response.ok) {  // Check if the HTTP response is successful
@@ -32,7 +32,7 @@ const Dashboard = () => {
     };
 
     const handleUpdateApiKey = async () => {
-        const response = await fetch('http://localhost:3000/api/update-api-key', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/update-api-key`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ const Dashboard = () => {
     };
 
     const handleSignOut = async () => {
-        await fetch('http://localhost:3001/logout', {
+        await fetch(`${process.env.REACT_APP_API_URL}/logout`, {
             method: 'GET',
             credentials: 'include' // necessary for cookies if sessions are used
         })

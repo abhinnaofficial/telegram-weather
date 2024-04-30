@@ -6,7 +6,8 @@ const AdminPanel = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:3000/auth/session', { credentials: 'include' })
+        fetch(`${process.env.REACT_APP_API_URL}/auth/session`, { credentials: 'include' })
+
             .then(response => response.json())
             .then(data => {
                 if (data.isAuthenticated) {
@@ -22,7 +23,7 @@ const AdminPanel = () => {
 
     const handleGoogleLogin = () => {
         const clientId = '872902945558-7nri7aoh67objhntk14clsf56hoq434u.apps.googleusercontent.com';
-        const redirectUri = encodeURIComponent('http://localhost:3000/auth/google/callback');
+        const redirectUri = encodeURIComponent(`${process.env.REACT_APP_API_URL}/auth/google/callback`);
         const scope = encodeURIComponent('profile email');
         const responseType = 'code';
         const googleUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}&access_type=offline`;
