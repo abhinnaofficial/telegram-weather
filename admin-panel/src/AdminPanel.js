@@ -9,13 +9,18 @@ const AdminPanel = () => {
         fetch(`${process.env.REACT_APP_API_URL}/auth/session`, { credentials: 'include' })
             .then(response => response.json())
             .then(data => {
+                console.log("Received data:", data);  // Detailed log of the received data
                 if (data.isAuthenticated) {
+                    console.log("User is authenticated, setting user data:", data.user);
                     setUser(data.user);
+                } else {
+                    console.log("User is not authenticated.");
+                    setUser(null);
                 }
                 setLoading(false);
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Error fetching session data:', error);
                 setLoading(false);
             });
     }, []);
@@ -37,10 +42,9 @@ const AdminPanel = () => {
         <div className="admin-panel">
             <h1>Welcome to Weather Bot Admin Panel</h1>
             <div className="login-box">
-                {!user && (
+                {!user ? (
                     <button onClick={handleGoogleLogin}>Sign in with Google</button>
-                )}
-                {user && (
+                ) : (
                     <div className="user-card">
                         <img src={user.picture || 'default-profile.png'} alt="Profile" />
                         <p>Signed in as {user.email || 'No email available'}</p>
