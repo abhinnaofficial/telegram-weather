@@ -38,10 +38,12 @@ const AdminPanel = () => {
             <h1>Welcome to Weather Bot Admin Panel</h1>
             <div className="login-box">
                 <button onClick={handleGoogleLogin}>Sign in with Google</button>
-                <div className="user-card">
-                    <img src={user?.picture || 'default-profile.png'} alt="Profile" />
-                    <p>Signed in as {user?.email}</p>
-                </div>
+                {user && (
+                    <div className="user-card">
+                        <img src={user.picture || 'default-profile.png'} alt="Profile" />
+                        <p>Signed in as {user.email || 'No email available'}</p>
+                    </div>
+                )}
             </div>
         </div>
     );
