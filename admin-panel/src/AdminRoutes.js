@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import AdminPanel from './AdminPanel';
 import Dashboard from './component/Admindashboard';
-import AuthHandler from './component/AuthHandler';
-
 
 const AdminRoutes = () => {
     return (
@@ -14,7 +12,6 @@ const AdminRoutes = () => {
 
                 <Route path="/admin" element={<AdminPanel />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/auth/google/callback" element={<AuthHandler />} />
 
 
             </Routes>
