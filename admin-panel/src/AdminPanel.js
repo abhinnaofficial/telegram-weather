@@ -37,18 +37,15 @@ const AdminPanel = () => {
         <div className="admin-panel">
             <h1>Welcome to Weather Bot Admin Panel</h1>
             <div className="login-box">
-                {!user && (
-                    <button onClick={handleGoogleLogin}>Sign in with Google</button>
-                )}
-                {user && (
-                    <div className="user-card">
-                        <img src={user.picture || 'default-profile.png'} alt="Profile" />
-                        <p>Signed in as {user.email}</p>
-                    </div>
-                )}
+                <button onClick={handleGoogleLogin}>Sign in with Google</button>
+                <div className="user-card">
+                    <img src={user?.picture || 'default-profile.png'} alt="Profile" />
+                    <p>Signed in as {user?.email}</p>
+                </div>
             </div>
         </div>
     );
+
 };
 
 export default AdminPanel;
